@@ -34,6 +34,14 @@
         "projectId": "f42ba941-4bdb-4c5b-ae17-e878551a86b8"
       }
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "The app accesses your camera to take photos of your fav photos"
+        }
+      ]
+    ],
     "owner": "177391",
     "runtimeVersion": {
       "policy": "appVersion"
