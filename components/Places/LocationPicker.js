@@ -2,15 +2,30 @@ import { Alert, Image, StyleSheet, Text, View } from "react-native";
 import OutlinedButton from "../UI/OutlinedButton";
 import { Colors } from "../../constants/colors";
 import { getCurrentPositionAsync, PermissionStatus, useForegroundPermissions } from "expo-location";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getMapPreview } from "../../util/location";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 function LocationPicker() {
 
     const naviagtion = useNavigation();
+    const route = useRoute();
     const [locationPermissionInfo, requestPermission] = useForegroundPermissions({})
     const [location, setLocation] = useState();
+    const mapPickedlocation = route.params && {
+        lat: route.params.pickedLat,
+        lng: route.params.pickedLng
+    };
+    console.log(mapPickedlocation)
+    useEffect(() => {
+        if (route.params?.pickedLat && route.params?.pickedLng) {
+            setLocation({
+                lat: route.params.pickedLat,
+                lng: route.params.pickedLng,
+            });
+        }
+    }, [route.params?.pickedLat, route.params?.pickedLng]);
+
     async function verifyPermission() {
         if (locationPermissionInfo.status === PermissionStatus.UNDETERMINED) {
             const permissionResp = await requestPermission();
@@ -30,7 +45,7 @@ function LocationPicker() {
 
     async function locationHandler() {
         const hasPermission = await verifyPermission()
-        if(!hasPermission) {
+        if (!hasPermission) {
             return;
         }
         const location = await getCurrentPositionAsync();
@@ -45,9 +60,9 @@ function LocationPicker() {
         naviagtion.navigate("Map")
     }
 
-    let locationPreview =  <Text>No Location Picked yet</Text> 
-    if(location) {
-        locationPreview = <Image style={styles.image} source={{uri: getMapPreview(location.lat, location.lng) }}/>
+    let locationPreview = <Text>No Location Picked yet</Text>
+    if (location) {
+        locationPreview = <Image style={styles.image} source={{ uri: getMapPreview(location.lat, location.lng) }} />
     }
     return (
         <View>
@@ -85,6 +100,6 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
     }
-    
+
 
 })

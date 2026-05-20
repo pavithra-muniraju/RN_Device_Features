@@ -8,32 +8,34 @@ import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/UI/IconButton";
 import { Colors } from "./constants/colors";
 import Map from "./screens/Map";
+import RetailerLogin from "./screens/login";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <>
-      <StatusBar style="dark" />
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{
-          headerStyle: {backgroundColor: Colors.primary500},
-          headerTintColor: Colors.gray700,
-          contentStyle: {backgroundColor: Colors.gray700}
-        }} >
-          <Stack.Screen component={AllPlaces} name="All Places" options={({ navigation }) => (
-            {
-              title: 'Your Fav Places',
-              headerRight: ({ tintColor }) => <IconButton name="add" size={24} color={tintColor}
-                onPress={() => navigation.navigate("AddPlace")} />
-            }
-          )} />
-          <Stack.Screen component={AddPlace} name="AddPlace" options={{
-            title: 'Add a new Place'
-          }}/>
-          <Stack.Screen component={Map}  name="Map"/>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </>
+    <RetailerLogin />
+    // <>
+    //   <StatusBar style="dark" />
+    //   <NavigationContainer>
+    //     <Stack.Navigator screenOptions={{
+    //       headerStyle: {backgroundColor: Colors.primary500},
+    //       headerTintColor: Colors.gray700,
+    //       contentStyle: {backgroundColor: Colors.gray700}
+    //     }} >
+    //       <Stack.Screen component={AllPlaces} name="All Places" options={({ navigation }) => (
+    //         {
+    //           title: 'Your Fav Places',
+    //           headerRight: ({ tintColor }) => <IconButton name="add" size={24} color={tintColor}
+    //             onPress={() => navigation.navigate("AddPlace")} />
+    //         }
+    //       )} />
+    //       <Stack.Screen component={AddPlace} name="AddPlace" options={{
+    //         title: 'Add a new Place'
+    //       }}/>
+    //       <Stack.Screen component={Map}  name="Map"/>
+    //     </Stack.Navigator>
+    //   </NavigationContainer>
+    // </>
   )
 
 }
